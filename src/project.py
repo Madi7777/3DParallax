@@ -16,6 +16,15 @@ def main():
     scroll = 0
     paused = False
 
+    # Colors
+    WHITE = (255, 255, 255)
+    BLACK = (0, 0, 0)
+    GRAY = (100, 100, 100)
+
+    # Fonts
+    font = pygame.font.SysFont("Arial", 50)
+    button_font = pygame.font.SysFont("Arial", 30)
+
     # Load background images 
     bg_images = []
     for i in range(1, 5):
@@ -44,6 +53,21 @@ def main():
         overlay = pygame.Surface(screen.get_size(), pygame.SRCALPHA)
         overlay.fill((0, 0, 0, 150))
         screen.blit(overlay, (0, 0))
+
+    # Title
+        title = font.render("PAUSED, True, WHITE")
+        screen.blit(title, (screen.get_width() // 2 - title.get_width() // 2, 200))
+
+    # Continue 
+        continue_button = pygame.Rect(screen.get_width()
+            // 2 - 100, 350, 200, 60)
+
+        pygame.draw.rect(screen, GRAY, continue_button, border_radius=10)
+
+        continue_text = button_font.render("CONTINUE", True, WHITE)
+        screen.blit(continue_text, (
+            continue_button.centerx - continue_text.get_width() // 2,
+            continue_button.centery - continue_text.get_height() // 2))
 
     running = True
 
