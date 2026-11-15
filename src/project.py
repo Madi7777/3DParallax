@@ -1,45 +1,52 @@
-import pygame 
-
-def Backgrounds():
-     bg_images = []
-     for i in range(1, 4):
-          bg_image = pygame.image.load(f"plx-{i}.png").convert_alpha()
-          bg_images.append(bg_image)
-      
-
+import pygame
 
 def main():
-    pygame.init
+    pygame.init()  # Initialize pygame
+
+    # Fullscreen
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    pygame.display.set_caption("Cityscape")
+
+    # Load background images 
+    bg_images = []
+    for i in range(1, 4):
+        bg_image = pygame.image.load(f"plx-{i}.png").convert_alpha()
+        # Resizing image
+        bg_image = pygame.transform.scale(bg_image,
+            (int(bg_image.get_width() * (screen.get_height() / bg_image.get_height())),
+            screen.get_height()))
+        bg_images.append(bg_image)
+
+    bg_width = bg_images[0].get_width()
+
 
     clock = pygame.time.Clock()
     FPS = 60
 
-# fullscreen
-    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-    pygame.display.set_caption("Cityscape")
-    resolution = screen.get_size()
+    def draw_bg():
+        for x in range(5):
+            for i in bg_images:
+                screen.blit(i, (x * bg_width, 0))
+        
 
     running = True
+
     while running:
+        clock.tick(FPS)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False 
-# exit fullscreen
+                running = False
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    running = False 
+                    running = False
 
-#game loop
-    run = True  
-    while run:
-            clock.tick(FPS)
-            for event in pygame.event.get():
-                 if event.type == pygame.QUIT:
-                      run = False
-
-            pygame.display.update()
+        draw_bg()
+        pygame.display.update()
 
     pygame.quit()
+
 
 if __name__ == "__main__":
     main()
