@@ -3,6 +3,11 @@ import pygame
 def main():
     pygame.init()  # Initialize pygame
 
+    # Initialize music
+    pygame.mixer.music.load("music.mp3")
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.play(-1)
+
     # Fullscreen
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     pygame.display.set_caption("Cityscape")
