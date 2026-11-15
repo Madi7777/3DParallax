@@ -7,6 +7,9 @@ def main():
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     pygame.display.set_caption("Cityscape")
 
+    # Game variables 
+    scroll = 0
+
     # Load background images 
     bg_images = []
     for i in range(1, 4):
@@ -26,7 +29,7 @@ def main():
     def draw_bg():
         for x in range(5):
             for i in bg_images:
-                screen.blit(i, (x * bg_width, 0))
+                screen.blit(i, (x * bg_width - scroll, 0))
         
 
     running = True
@@ -41,6 +44,13 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
+
+        #Camera Scroll
+        key = pygame.key.get_pressed()
+        if key[pygame.K_LEFT]:
+            scroll -= 5
+        if key[pygame.K_RIGHT]:
+            scroll += 5
 
         draw_bg()
         pygame.display.update()
