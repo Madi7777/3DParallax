@@ -12,7 +12,7 @@ def main():
 
     # Load background images 
     bg_images = []
-    for i in range(1, 4):
+    for i in range(1, 5):
         bg_image = pygame.image.load(f"plx-{i}.png").convert_alpha()
         # Resizing image
         bg_image = pygame.transform.scale(bg_image,
@@ -28,8 +28,10 @@ def main():
 
     def draw_bg():
         for x in range(5):
+            speed = 1
             for i in bg_images:
-                screen.blit(i, (x * bg_width - scroll, 0))
+                screen.blit(i, (x * bg_width - scroll * speed, 0))
+                speed += 0.2
         
 
     running = True
