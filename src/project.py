@@ -1,5 +1,13 @@
 import pygame 
 
+def Backgrounds():
+     bg_images = []
+     for i in range(1, 4):
+          bg_image = pygame.image.load(f"plx-{i}.png").convert_alpha()
+          bg_images.append(bg_image)
+      
+
+
 def main():
     pygame.init
 
@@ -28,6 +36,10 @@ def main():
             for event in pygame.event.get():
                  if event.type == pygame.QUIT:
                       run = False
+
+            pygame.display.update()
+
+    pygame.quit()
 
 if __name__ == "__main__":
     main()
