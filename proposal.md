@@ -37,4 +37,4 @@ Minimal Viable Outcome:
 
 - Week N (Final)
   1. Finalizing Parallax Effect
-  
+    
