@@ -14,6 +14,7 @@ def main():
 
     # Game variables 
     scroll = 0
+    paused = False
 
     # Load background images 
     bg_images = []
@@ -37,7 +38,12 @@ def main():
             for i in bg_images:
                 screen.blit(i, (x * bg_width - scroll * speed, 0))
                 speed += 0.2
-        
+
+    # Draw pause menu
+    def draw_pause_menu():
+        overlay = pygame.Surface(screen.get_size(), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 150))
+        screen.blit(overlay, (0, 0))
 
     running = True
 
