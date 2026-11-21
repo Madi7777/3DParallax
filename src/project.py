@@ -61,25 +61,35 @@ def main():
         screen.blit(overlay, (0, 0))
 
     # Title
-        title = font.render("PAUSED, True, WHITE")
+        title = font.render("PAUSED", True, WHITE)
         screen.blit(title, (screen.get_width() // 2 - title.get_width() // 2, 200))
 
     # Mouse 
-    mouse_pos = pygame.mouse.get_pos()
+        mouse_pos = pygame.mouse.get_pos()
 
     # Continue 
-    if continue_button.collidepoint(mouse_pos):
-        pygame.draw.rect(
+        if continue_button.collidepoint(mouse_pos):
+            pygame.draw.rect(
                 screen, LIGHT_GRAY, continue_button,border_radius=10)
-    else:
-        pygame.draw.rect(screen, GRAY,
+        else:
+            pygame.draw.rect(screen, GRAY,
                          continue_button, border_radius=10)
-    continue_text = button_font.render("CONTINUE", True, WHITE)
-    screen.blit(continue_text, (continue_button.centerx - continue_text.get_width() 
+        continue_text = button_font.render("CONTINUE", True, WHITE)
+        screen.blit(continue_text, (continue_button.centerx - continue_text.get_width() 
                                 // 2,continue_button.centery - continue_text.get_height() // 2))
 
     # Quit 
+        if quit_button.collidepoint(mouse_pos):
+            pygame.draw.rect(screen, LIGHT_GRAY, quit_button,
+                border_radius=10)
+        else:
+            pygame.draw.rect(screen, GRAY, quit_button,border_radius=10)
+        quit_text = button_font.render("QUIT", True, WHITE)
 
+        screen.blit(quit_text,
+            (quit_button.centerx - quit_text.get_width() // 2,
+            quit_button.centery - quit_text.get_height() // 2))
+    
     running = True
 
     while running:
@@ -99,15 +109,13 @@ def main():
 # Continue button
                     if continue_button.collidepoint(event.pos):
                         paused = False
-# Exit 
-            if event.type == pygame.KEYDOWN:    
-                if event.key == pygame.K_BACKSPACE:
-                    running = False
+# Quit 
+                    if quit_button.collidepoint(event.pos):
+                        running = False
 
 # Camera Scroll
         if not paused:
             key = pygame.key.get_pressed()
-        key = pygame.key.get_pressed()
         if key[pygame.K_LEFT]:
             scroll -= 5
         if key[pygame.K_RIGHT]:
