@@ -20,17 +20,11 @@ def main():
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
     GRAY = (100, 100, 100)
+    LIGHT_GRAY = (150, 150, 150)
 
     # Fonts
     font = pygame.font.SysFont("Arial", 50)
     button_font = pygame.font.SysFont("Arial", 30)
-
-    # Pause menu buttons
-    continue_button = pygame.Rect(
-        screen.get_width() // 2 - 100, 350, 200, 60)
-
-    quit_button = pygame.Rect(
-        screen.get_width() // 2 - 100, 430, 200, 60)
 
     # Load background images 
     bg_images = []
@@ -44,6 +38,11 @@ def main():
 
     bg_width = bg_images[0].get_width()
 
+# Pause menu buttons
+    continue_button = pygame.Rect(
+        screen.get_width() // 2 - 100, 350, 200, 60)
+    quit_button = pygame.Rect(
+        screen.get_width() // 2 - 100, 430, 200, 60)
 
     clock = pygame.time.Clock()
     FPS = 60
@@ -70,17 +69,17 @@ def main():
 
     # Continue 
     if continue_button.collidepoint(mouse_pos):
-        pygame.draw.rect(screen, (150, 150, 150),
-                         continue_button, border_radius=10)
+        pygame.draw.rect(
+                screen, LIGHT_GRAY, continue_button,border_radius=10)
     else:
         pygame.draw.rect(screen, GRAY,
                          continue_button, border_radius=10)
-
     continue_text = button_font.render("CONTINUE", True, WHITE)
-
     screen.blit(continue_text, (continue_button.centerx - continue_text.get_width() 
                                 // 2,continue_button.centery - continue_text.get_height() // 2))
-    
+
+    # Quit 
+
     running = True
 
     while running:
@@ -89,7 +88,6 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
 # Pause 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
@@ -106,7 +104,9 @@ def main():
                 if event.key == pygame.K_BACKSPACE:
                     running = False
 
-        #Camera Scroll
+# Camera Scroll
+        if not paused:
+            key = pygame.key.get_pressed()
         key = pygame.key.get_pressed()
         if key[pygame.K_LEFT]:
             scroll -= 5
@@ -114,6 +114,10 @@ def main():
             scroll += 5
 
         draw_bg()
+
+        if paused:
+            draw_pause_menu()
+
         pygame.display.update()
 
     pygame.quit()
