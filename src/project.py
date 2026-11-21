@@ -25,6 +25,13 @@ def main():
     font = pygame.font.SysFont("Arial", 50)
     button_font = pygame.font.SysFont("Arial", 30)
 
+    # Pause menu buttons
+    continue_button = pygame.Rect(
+        screen.get_width() // 2 - 100, 350, 200, 60)
+
+    quit_button = pygame.Rect(
+        screen.get_width() // 2 - 100, 430, 200, 60)
+
     # Load background images 
     bg_images = []
     for i in range(1, 5):
@@ -58,17 +65,22 @@ def main():
         title = font.render("PAUSED, True, WHITE")
         screen.blit(title, (screen.get_width() // 2 - title.get_width() // 2, 200))
 
+    # Mouse 
+    mouse_pos = pygame.mouse.get_pos()
+
     # Continue 
-        continue_button = pygame.Rect(screen.get_width()
-            // 2 - 100, 350, 200, 60)
+    if continue_button.collidepoint(mouse_pos):
+        pygame.draw.rect(screen, (150, 150, 150),
+                         continue_button, border_radius=10)
+    else:
+        pygame.draw.rect(screen, GRAY,
+                         continue_button, border_radius=10)
 
-        pygame.draw.rect(screen, GRAY, continue_button, border_radius=10)
+    continue_text = button_font.render("CONTINUE", True, WHITE)
 
-        continue_text = button_font.render("CONTINUE", True, WHITE)
-        screen.blit(continue_text, (
-            continue_button.centerx - continue_text.get_width() // 2,
-            continue_button.centery - continue_text.get_height() // 2))
-
+    screen.blit(continue_text, (continue_button.centerx - continue_text.get_width() 
+                                // 2,continue_button.centery - continue_text.get_height() // 2))
+    
     running = True
 
     while running:
@@ -80,6 +92,10 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
+                    paused = not paused
+
+            if event.type == pygame.KEYDOWN:    
+                if event.key == pygame.K_BACKSPACE:
                     running = False
 
         #Camera Scroll
