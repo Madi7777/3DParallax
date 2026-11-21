@@ -90,10 +90,18 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
+# Pause 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     paused = not paused
+# Mouse 
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1 and paused:
 
+# Continue button
+                    if continue_button.collidepoint(event.pos):
+                        paused = False
+# Exit 
             if event.type == pygame.KEYDOWN:    
                 if event.key == pygame.K_BACKSPACE:
                     running = False
